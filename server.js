@@ -10,6 +10,9 @@ const port = process.env.PORT;
 // static files configuration
 app.use(express.static("public"));
 
+// client files configurations
+app.use(express.urlencoded({ extended: true }));
+
 // ROUTES
 app.get("/", homeController.index);
 app.get("/about", aboutController.index);

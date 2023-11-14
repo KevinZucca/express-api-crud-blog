@@ -63,7 +63,7 @@ function show(req, res) {
 
       const postSlug = req.params.slug;
       const searchedPost = jsonPosts.find((post) => post.slug == postSlug);
-      searchedPost.image_url = "http://localhost:3000/imgs/posts/" + post.image;
+      searchedPost.image_url = "/imgs/posts/" + post.image;
 
       if (!searchedPost) {
         res.status(404).send(`Post con slug ${postSlug} non trovato`);
@@ -90,8 +90,24 @@ function create(req, res) {
     },
   });
 }
-// Aggiungere un altra proprietà image_download_url che invece dovrà far scaricare l’immagine puntando
-//  alla rotta download
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
+function store(req, res) {
+  res.format({
+    html: () => {
+      res.redirect(301, "/");
+    },
+    default: () => {
+      const newPost = req.body;
+      res.type("json").send(newPost);
+    },
+  });
+}
+
 /**
  *
  * @param {express.Request} req
@@ -124,4 +140,4 @@ function findOrFail(req, res) {
   return post;
 }
 
-module.exports = { index, show, create, download };
+module.exports = { index, show, create, download, store };
