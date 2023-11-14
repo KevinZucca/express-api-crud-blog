@@ -68,5 +68,24 @@
       "Ricette al cucchiaio",
       "Senza cottura"
     ]
+  },
+  {
+    "title": "Gnocchi di patate",
+    "slug": "gnocchi-di-patate",
+    "content": "Gli gnocchi di patate sono un piatto tradizionale della cucina italiana. Sono realizzati con patate lessate, schiacciate e mischiate con farina, formando una pasta morbida. Gli gnocchi vengono poi tagliati in piccoli pezzi e possono essere arricchiti con vari condimenti, come sugo di pomodoro, burro e salvia, o pesto.",
+    "tags": [
+      "Gnocchi",
+      "Ricette"
+    ],
+    "image": {
+      "fieldname": "image",
+      "originalname": "gnocchi-di-patate.jpg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "public/imgs/posts",
+      "filename": "ce1a88a0660a3e5bcd0c7ddc64ed56ca",
+      "path": "public\\imgs\\posts\\ce1a88a0660a3e5bcd0c7ddc64ed56ca",
+      "size": 96076
+    }
   }
 ]
