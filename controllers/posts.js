@@ -2,8 +2,8 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const loadNav = require("../utilities/loadNav");
-const jsonPosts = require("../db");
-const postList = require("../db");
+const jsonPosts = require("../db.json");
+const { kebabCase, update } = require("lodash");
 
 /**
  *
@@ -86,7 +86,24 @@ function create(req, res) {
       res.type("html").send(html);
     },
     default: () => {
-      res.status(406).send("Type not valid");
+      const newPost = jsonPosts.find((post) => post.title == req.body.title);
+
+      if (!newPost) {
+        jsonPosts.push({
+          ...req.body,
+          slug: kebabCase(req.body.title),
+        });
+
+        const updatedJsonList = JSON.stringify(jsonPosts, null, 2);
+        fs.writeFileSync(
+          path.resolve(__dirname, "..", "db.json"),
+          updatedJsonList
+        );
+
+        res.status(200).send("Nuovo post aggiunto alla lista");
+      } else {
+        res.status(406).send("Il post esiste già");
+      }
     },
   });
 }
@@ -154,7 +171,7 @@ function download(req, res) {
 function findOrFail(req, res) {
   const postSlug = req.params.slug;
 
-  const post = postList.find((post) => post.slug == postSlug);
+  const post = jsonPosts.find((post) => post.slug == postSlug);
 
   if (!post) {
     res.status(404).send(`Post con slug '${postSlug}' non trovato`);

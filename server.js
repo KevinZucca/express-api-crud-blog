@@ -12,6 +12,7 @@ app.use(express.static("public"));
 
 // client files configurations
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // ROUTES
 app.get("/", homeController.index);
