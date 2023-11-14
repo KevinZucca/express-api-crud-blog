@@ -113,6 +113,30 @@ function store(req, res) {
  * @param {express.Request} req
  * @param {express.Response} res
  */
+function destroy(req, res) {
+  res.format({
+    html: () => {
+      res.redirect(301, "/");
+    },
+    default: () => {
+      const postSlug = req.params.slug;
+      const post = jsonPosts.find((post) => post.slug == postSlug);
+      if (post) {
+        res.type("html").send("<strong>Post eliminato</strong>");
+        return;
+      } else {
+        res.status(404).send("Post non trovato");
+        return;
+      }
+    },
+  });
+}
+
+/**
+ *
+ * @param {express.Request} req
+ * @param {express.Response} res
+ */
 function download(req, res) {
   const post = findOrFail(req, res);
   const filePath = path.resolve(
@@ -140,4 +164,4 @@ function findOrFail(req, res) {
   return post;
 }
 
-module.exports = { index, show, create, download, store };
+module.exports = { index, show, create, download, store, destroy };
