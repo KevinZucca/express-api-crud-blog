@@ -23,6 +23,9 @@ function index(req, res) {
       htmlContent.push('<div id="container" class="container">');
 
       for (const post of jsonPosts) {
+        if (post.image.originalname) {
+          post.image = post.image.originalname;
+        }
         htmlContent.push(
           `<div class="card">
             <img id="card-img" src='/imgs/posts/${post.image}'>
@@ -65,6 +68,11 @@ function show(req, res) {
       const searchedPost = jsonPosts.find((post) => post.slug == postSlug);
       searchedPost.image_url = "/imgs/posts/" + post.image;
 
+      if (post.image.destination) {
+        searchedPost.image_url =
+          post.image.destination + "/" + post.image.originalname;
+      }
+
       if (!searchedPost) {
         res.status(404).send(`Post con slug ${postSlug} non trovato`);
         return;
@@ -74,7 +82,6 @@ function show(req, res) {
   });
 }
 
-//  create: ritornerà un semplice html con un h1 con scritto Creazione nuovo post e nel caso venga richiesta una risposta diversa da html lancerà un errore 406
 /**
  *
  * @param {express.Request} req
@@ -103,16 +110,19 @@ function store(req, res) {
       res.redirect(301, "/");
     },
     default: () => {
-      const newPost = req.body;
+      let newPost = req.body;
       const newPostTitle = jsonPosts.find(
         (post) => post.title == req.body.title
       );
 
       if (!newPostTitle) {
-        jsonPosts.push({
+        newPost = {
           ...req.body,
           slug: kebabCase(newPost.title),
-        });
+          image: req.file,
+        };
+
+        jsonPosts.push(newPost);
 
         const updatedJsonList = JSON.stringify(jsonPosts, null, 2);
         fs.writeFileSync(

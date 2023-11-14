@@ -58,18 +58,6 @@
     ]
   },
   {
-    "title": "Tiramisù",
-    "slug": "tiramisu",
-    "content": "Il tiramisù è un classico dessert italiano a base di savoiardi inzuppati nel caffè e alternati a strati di crema al mascarpone. Una spruzzata di cacao amaro sulla superficie completa questo dolce irresistibile e apprezzato in tutto il mondo.",
-    "image": "tiramisu.jpeg",
-    "tags": [
-      "Dolci",
-      "Torte",
-      "Ricette al cucchiaio",
-      "Senza cottura"
-    ]
-  },
-  {
     "title": "Gnocchi di patate",
     "slug": "gnocchi-di-patate",
     "content": "Gli gnocchi di patate sono un piatto tradizionale della cucina italiana. Sono realizzati con patate lessate, schiacciate e mischiate con farina, formando una pasta morbida. Gli gnocchi vengono poi tagliati in piccoli pezzi e possono essere arricchiti con vari condimenti, come sugo di pomodoro, burro e salvia, o pesto.",
@@ -86,6 +74,25 @@
       "filename": "ce1a88a0660a3e5bcd0c7ddc64ed56ca",
       "path": "public\\imgs\\posts\\ce1a88a0660a3e5bcd0c7ddc64ed56ca",
       "size": 96076
+    }
+  },
+  {
+    "title": "Tiramisù",
+    "slug": "tiramisu",
+    "tags": [
+      "Dolci",
+      "Torte"
+    ],
+    "content": "Il tiramisù è un classico dessert italiano a base di savoiardi inzuppati nel caffè e alternati a strati di crema al mascarpone. Una spruzzata di cacao amaro sulla superficie completa questo dolce irresistibile e apprezzato in tutto il mondo.",
+    "image": {
+      "fieldname": "image",
+      "originalname": "tiramisu.jpeg",
+      "encoding": "7bit",
+      "mimetype": "image/jpeg",
+      "destination": "public/imgs/posts",
+      "filename": "b666ce42ca3ed80df893c25b490536fa",
+      "path": "public\\imgs\\posts\\b666ce42ca3ed80df893c25b490536fa",
+      "size": 53252
     }
   }
 ]
