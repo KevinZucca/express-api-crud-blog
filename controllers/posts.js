@@ -74,6 +74,7 @@ function show(req, res) {
   });
 }
 
+//  create: ritornerà un semplice html con un h1 con scritto Creazione nuovo post e nel caso venga richiesta una risposta diversa da html lancerà un errore 406
 /**
  *
  * @param {express.Request} req
@@ -86,24 +87,7 @@ function create(req, res) {
       res.type("html").send(html);
     },
     default: () => {
-      const newPost = jsonPosts.find((post) => post.title == req.body.title);
-
-      if (!newPost) {
-        jsonPosts.push({
-          ...req.body,
-          slug: kebabCase(req.body.title),
-        });
-
-        const updatedJsonList = JSON.stringify(jsonPosts, null, 2);
-        fs.writeFileSync(
-          path.resolve(__dirname, "..", "db.json"),
-          updatedJsonList
-        );
-
-        res.status(200).send("Nuovo post aggiunto alla lista");
-      } else {
-        res.status(406).send("Il post esiste già");
-      }
+      res.status(406).send("impossibile creare nuovo post");
     },
   });
 }
@@ -120,7 +104,26 @@ function store(req, res) {
     },
     default: () => {
       const newPost = req.body;
-      res.type("json").send(newPost);
+      const newPostTitle = jsonPosts.find(
+        (post) => post.title == req.body.title
+      );
+
+      if (!newPostTitle) {
+        jsonPosts.push({
+          ...req.body,
+          slug: kebabCase(newPost.title),
+        });
+
+        const updatedJsonList = JSON.stringify(jsonPosts, null, 2);
+        fs.writeFileSync(
+          path.resolve(__dirname, "..", "db.json"),
+          updatedJsonList
+        );
+
+        res.type("json").send(newPost);
+      } else {
+        res.status(406).send("Il post esiste già");
+      }
     },
   });
 }
